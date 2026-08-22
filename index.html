@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicPay - Candidatos</title>
+    <link rel="icon" type="image/png" href="fotos/PicPay_mini.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="fotos/PicPay_logo.png" alt="PicPay" class="logo-img">
+        </div>
+            <h1 class="nav-title">Recursos Humanos</h1>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="fotos/person.png" alt="Total" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value">1,244</strong>
+                    <span class="kpi-label">Candidatos</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="fotos/under analysis.png" alt="Em Análise" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value">310</strong>
+                    <span class="kpi-label">Em Análise</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="fotos/accepted.png" alt="Aprovados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value">520</strong>
+                    <span class="kpi-label">Aprovados</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="fotos/rejected.png" alt="Reprovados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value">142</strong>
+                    <span class="kpi-label">Reprovados</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="fotos/hired.png" alt="Contratados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value">272</strong>
+                    <span class="kpi-label">Contratados</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-content-split">
+            <div class="content-card form-section">
+                <h2 class="card-title">Cadastrar Candidato</h2>
+                <form class="form-grid">
+                    <div class="form-group span-half">
+                        <label for="id">ID *</label>
+                        <input type="number" id="id" name="id" required placeholder="Ex: 1">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="EM ANALISE">Em Análise</option>
+                            <option value="APROVADO">Aprovado</option>
+                            <option value="REPROVADO">Reprovado</option>
+                            <option value="CONTRATADO">Contratado</option>
+                        </select>
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Nome do candidato">
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required placeholder="email@exemplo.com">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="cargo">Cargo *</label>
+                        <input type="text" id="cargo" name="cargo" required placeholder="Ex: Desenvolvedor">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="departamento">Departamento</label>
+                        <input type="text" id="departamento" name="departamento" placeholder="Tecnologia">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="salario">Salário (R$)</label>
+                        <input type="number" id="salario" name="salario" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo">
+                    </div>
+                    <div class="form-actions span-full">
+                        <button type="submit" class="btn btn-primary">Cadastrar Candidato</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card table-section">
+                <div class="card-header">
+                    <h1 class="card-title">Candidatos Cadastrados</h1>
+                    <div class="search-box">
+                        <input type="text" placeholder="Buscar por nome, cargo ou status...">
+                        <button type="button" class="btn btn-search">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>Ana Silva</strong>
+                                        <small>ana.silva@email.com</small>
+                                    </div>
+                                </td>
+                                <td>Desenvolvedora Java</td>
+                                <td>Em Análise</td>
+                                <td>
+                                    <div class="actions-wrapper">
+                                        <button type="button" class="btn-action btn-put" title="PUT">PUT</button>
+                                        <button type="button" class="btn-action btn-patch" title="PATCH">PATCH</button>
+                                        <button type="button" class="btn-action btn-delete" title="DELETE">DELETE</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
