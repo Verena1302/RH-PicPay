@@ -11,27 +11,10 @@ import com.picpay.rh.model.Status;
 
 @Service
 public class FuncionarioService {
-
     private final List<Funcionario> funcionarios = new ArrayList<>();
 
 
-
-    // TESTE
-    public FuncionarioService() {
-        funcionarios.add(new Funcionario(
-                1,
-                "Marena Marostica Liberal",
-                "ana.silva@email.com",
-                "(11) 99999-9999",
-                "Desenvolvedora Java",
-                "Tecnologia",
-                8500.0,
-                "São Paulo",
-                Status.EM_ANALISE
-        ));
-    }
-
-
+    
     // GET
     public List<Funcionario> listarTodos() {
         return funcionarios;
