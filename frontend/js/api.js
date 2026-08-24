@@ -1,6 +1,6 @@
 const URL_BASE = "http://localhost:8080/funcionarios";
 
-//GET
+// GET 
 async function getFuncionarios(busca) {
     let url = URL_BASE;
     if (busca) {

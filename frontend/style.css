@@ -6,9 +6,9 @@
     --white: #FFFFFF;
     
     --bg-app: #EAF4EE;
-    --card-bg: #F4F6F5;
+    --card-bg: #e0e0e0;
     --text-primary: #0A1E14;
-    --text-secondary: #5C7065;
+    --text-secondary: #39443e;
     --border-color: #D3E3D9;
 
     --status-warning: #FFB800;
@@ -108,7 +108,7 @@ body {
 .kpi-icon-wrapper {
     width: 64px;
     height: 64px;
-    background-color: #D2E7DC;
+    background-color: #91ccac;
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -319,6 +319,7 @@ body {
 .btn-put { background-color: var(--status-primary); }
 .btn-patch { background-color: var(--status-warning); }
 .btn-delete { background-color: var(--status-danger); }
+.btn-view { background-color: #eebb15; }
 
 @media (max-width: 1024px) {
     .main-content-split {

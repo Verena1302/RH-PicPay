@@ -19,6 +19,7 @@ function iniciarFiltros() {
         }
     });
 
+    // Se o usuário apagar a busca, volta a mostrar todos
     campoBusca.addEventListener("input", function () {
         if (campoBusca.value.trim() === "") {
             carregarFuncionarios();
