@@ -25,7 +25,7 @@
                     <img src="frontend/fotos/person.png" alt="Total" class="kpi-icon-img">
                 </div>
                 <div class="kpi-info">
-                    <strong class="kpi-value"></strong>
+                    <strong class="kpi-value" id="total-candidatos">0</strong>
                     <span class="kpi-label">Candidatos</span>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <img src="frontend/fotos/under analysis.png" alt="Em Análise" class="kpi-icon-img">
                 </div>
                 <div class="kpi-info">
-                    <strong class="kpi-value"></strong>
+                    <strong class="kpi-value" id="em-analise">0</strong>
                     <span class="kpi-label">Em Análise</span>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <img src="frontend/fotos/accepted.png" alt="Aprovados" class="kpi-icon-img">
                 </div>
                 <div class="kpi-info">
-                    <strong class="kpi-value"></strong>
+                    <strong class="kpi-value" id="aprovados">0</strong>
                     <span class="kpi-label">Aprovados</span>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <img src="frontend/fotos/rejected.png" alt="Reprovados" class="kpi-icon-img">
                 </div>
                 <div class="kpi-info">
-                    <strong class="kpi-value"></strong>
+                    <strong class="kpi-value" id="reprovados">0</strong>
                     <span class="kpi-label">Reprovados</span>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <img src="frontend/fotos/hired.png" alt="Contratados" class="kpi-icon-img">
                 </div>
                 <div class="kpi-info">
-                    <strong class="kpi-value"></strong>
+                    <strong class="kpi-value" id="contratados">0</strong>
                     <span class="kpi-label">Contratados</span>
                 </div>
             </div>
@@ -73,8 +73,8 @@
 
         <section class="main-content-split">
             <div class="content-card form-section">
-                <h2 class="card-title">Cadastrar Candidato</h2>
-                <form class="form-grid">
+                <h2 class="card-title" id="titulo-formulario">Cadastrar Candidato</h2>
+                <form class="form-grid" id="form-candidato">
                     <div class="form-group span-half">
                         <label for="id">ID *</label>
                         <input type="number" id="id" name="id" required placeholder="Ex: 1">
@@ -117,7 +117,8 @@
                         <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo">
                     </div>
                     <div class="form-actions span-full">
-                        <button type="submit" class="btn btn-primary">Cadastrar Candidato</button>
+                        <button type="submit" class="btn btn-primary" id="botao-salvar">Cadastrar Candidato</button>
+                        <button type="button" class="btn btn-secondary" id="btn-cancelar-edicao" hidden>Cancelar edição</button>
                     </div>
                 </form>
             </div>
@@ -126,8 +127,8 @@
                 <div class="card-header">
                     <h1 class="card-title">Candidatos Cadastrados</h1>
                     <div class="search-box">
-                        <input type="text" placeholder="Buscar por nome, cargo ou status...">
-                        <button type="button" class="btn btn-search">Buscar</button>
+                        <input type="text" id="busca-input" placeholder="Buscar por nome, cargo ou status...">
+                        <button type="button" class="btn btn-search" id="btn-buscar">Buscar</button>
                     </div>
                 </div>
 
@@ -142,24 +143,9 @@
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tabela-candidatos">
                             <tr>
-                                <td>1</td>
-                                <td>
-                                    <div class="user-info">
-                                        <strong><!-- nome --></strong>
-                                        <small><!-- email --></small>
-                                    </div>
-                                </td>
-                                <td><!-- cargo --></td>
-                                <td><!-- status --></td>
-                                <td>
-                                    <div class="actions-wrapper">
-                                        <button type="button" class="btn-action btn-put" title="PUT">PUT</button>
-                                        <button type="button" class="btn-action btn-patch" title="PATCH">PATCH</button>
-                                        <button type="button" class="btn-action btn-delete" title="DELETE">DELETE</button>
-                                    </div>
-                                </td>
+                                <td colspan="5">Carregando candidatos...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,5 +153,7 @@
             </div>
         </section>
     </main>
+
+    <script type="module" src="frontend/js/app.js"></script>
 </body>
 </html>
