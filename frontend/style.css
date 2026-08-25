@@ -60,26 +60,6 @@ body {
     width: auto;
 }
 
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-links a {
-    color: #A3C2B0;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    transition: all 0.2s ease;
-}
-
-.nav-links a.active, .nav-links a:hover {
-    color: #FFFFFF;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
 .dashboard-container {
     max-width: 1400px;
     margin: 2rem auto;
@@ -236,6 +216,11 @@ body {
     color: #FFFFFF;
 }
 
+.btn-danger {
+    background-color: var(--status-danger);
+    color: #FFFFFF;
+}
+
 .btn-search {
     background-color: var(--green-medium);
     color: #FFFFFF;
@@ -281,31 +266,6 @@ body {
     vertical-align: middle; 
 }
 
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-info small {
-    color: var(--text-secondary);
-}
-
-.tag {
-    padding: 0.3rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 800;
-    display: inline-block;
-}
-
-.tag-warning { background: rgba(255, 184, 0, 0.15); color: #B38200; }
-
-.actions-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-}
-
 .btn-action {
     border: none;
     padding: 0.35rem 0.55rem;
@@ -317,30 +277,60 @@ body {
 }
 
 .btn-put { background-color: var(--status-primary); }
-.btn-patch { background-color: var(--status-warning); }
 .btn-delete { background-color: var(--status-danger); }
 .btn-view { background-color: #eebb15; }
 
-@media (max-width: 1024px) {
-    .main-content-split {
-        grid-template-columns: 1fr;
-    }
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
 }
 
-@media (max-width: 768px) {
-    .dashboard-container {
-        padding: 0 1rem;
-    }
-    
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+.modal-card {
+    background: var(--card-bg);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 440px; 
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 
-    .span-half {
-        grid-column: span 1;
-    }
+.modal-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+}
 
-    .span-full {
-        grid-column: span 1;
-    }
+.modal-card .form-grid {
+    gap: 0.5rem; 
+}
+
+.modal-card .form-group label {
+    font-size: 0.75rem;
+}
+
+.modal-card .form-group input,
+.modal-card .form-group select {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.8rem;
+}
+
+.modal-actions .btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
 }

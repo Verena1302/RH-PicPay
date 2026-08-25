@@ -1,6 +1,6 @@
 import { getFuncionarios, getFuncionarioPorId, excluirFuncionario, atualizarStatus } from "./api.js";
 import { textoStatus, formatarSalario } from "./utils.js";
-import { iniciarEdicao } from "./formularios.js";
+import { abrirModalEdicao } from "./formularios.js";
 
 async function carregarFuncionarios(termoBusca) {
     try {
@@ -117,11 +117,12 @@ async function excluir(id) {
 async function editar(id) {
     try {
         const funcionario = await getFuncionarioPorId(id);
-        iniciarEdicao(funcionario);
+        abrirModalEdicao(funcionario);
     } catch (erro) {
         alert(erro.message);
     }
 }
+
 async function verDetalhes(id) {
     try {
         const f = await getFuncionarioPorId(id);
@@ -152,3 +153,4 @@ async function mudarStatus(id, novoStatus) {
 }
 
 export { carregarFuncionarios, iniciarTabela };
+
