@@ -1,76 +1,81 @@
-import { getFuncionarios, getFuncionarioPorId, excluirFuncionario, atualizarStatus } from "./api.js";
-import { textoStatus, formatarSalario } from "./utils.js";
+import { getFuncionarios, getFuncionarioPorId, excluirFuncionario } from "./api.js";
+import { textoStatus, classeStatus, formatarSalario, iniciais } from "./utils.js";
 import { iniciarEdicao } from "./formularios.js";
 
-async function carregarFuncionarios(termoBusca) {
+let listaAtual = [];
+let idSelecionado = null;
+
+const icones = {
+    bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>',
+    edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 16-.8 4.8L8 20l11-11-4-4L4 16Z"/><path d="m13 6 4 4"/></svg>',
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M10 11v6m4-6v6M9 7V4h6v3m-9 0 1 14h10l1-14"/></svg>'
+};
+
+async function carregarFuncionarios() {
+    const corpoTabela = document.getElementById("candidateTable");
+    corpoTabela.innerHTML = "<div class='empty-state'><b>Carregando candidatos...</b></div>";
+
     try {
-        const lista = await getFuncionarios(termoBusca);
-        mostrarTabela(lista);
-        mostrarIndicadores(lista);
+        listaAtual = await getFuncionarios();
     } catch (erro) {
-        alert("Não foi possível carregar os candidatos. O backend está rodando?");
-    }
-}
-
-function mostrarIndicadores(lista) {
-    let total = lista.length;
-    let emAnalise = 0;
-    let aprovados = 0;
-    let reprovados = 0;
-    let contratados = 0;
-
-    for (let i = 0; i < lista.length; i++) {
-        const status = lista[i].status;
-        if (status === "EM_ANALISE") emAnalise++;
-        if (status === "APROVADO") aprovados++;
-        if (status === "REPROVADO") reprovados++;
-        if (status === "CONTRATADO") contratados++;
-    }
-
-    document.getElementById("total-candidatos").textContent = total;
-    document.getElementById("em-analise").textContent = emAnalise;
-    document.getElementById("aprovados").textContent = aprovados;
-    document.getElementById("reprovados").textContent = reprovados;
-    document.getElementById("contratados").textContent = contratados;
-}
-
-function mostrarTabela(lista) {
-    const corpoTabela = document.getElementById("tabela-candidatos");
-    corpoTabela.innerHTML = "";
-
-    if (lista.length === 0) {
-        corpoTabela.innerHTML = "<tr><td colspan='5'>Nenhum candidato encontrado.</td></tr>";
+        listaAtual = [];
+        corpoTabela.innerHTML = "<div class='empty-state'><b>Não foi possível carregar os candidatos.</b><br>O backend está rodando?</div>";
+        document.getElementById("resultCount").textContent = "0 candidatos";
         return;
     }
 
-    for (let i = 0; i < lista.length; i++) {
-        const f = lista[i];
+    aplicarFiltrosERenderizar();
+}
 
-        const linha = document.createElement("tr");
-        linha.innerHTML =
-            "<td>" + f.id + "</td>" +
-            "<td>" + f.nome + "<br><small>" + (f.email || "") + "</small></td>" +
-            "<td>" + (f.cargo || "-") + "</td>" +
-            "<td>" +
-                "<select class='select-status' data-id='" + f.id + "'>" +
-                    "<option value='EM_ANALISE'" + (f.status === "EM_ANALISE" ? " selected" : "") + ">Em Análise</option>" +
-                    "<option value='APROVADO'" + (f.status === "APROVADO" ? " selected" : "") + ">Aprovado</option>" +
-                    "<option value='REPROVADO'" + (f.status === "REPROVADO" ? " selected" : "") + ">Reprovado</option>" +
-                    "<option value='CONTRATADO'" + (f.status === "CONTRATADO" ? " selected" : "") + ">Contratado</option>" +
-                "</select>" +
-            "</td>" +
-            "<td>" +
-                "<button type='button' class='btn-action btn-view' data-acao='ver' data-id='" + f.id + "'>Ver</button> " +
-                "<button type='button' class='btn-action btn-put' data-acao='editar' data-id='" + f.id + "'>Editar</button> " +
-                "<button type='button' class='btn-action btn-delete' data-acao='excluir' data-id='" + f.id + "'>Excluir</button>" +
-            "</td>";
+function aplicarFiltrosERenderizar() {
+    const campoBusca = document.getElementById("search");
+    const campoStatus = document.getElementById("statusFilter");
 
-        corpoTabela.appendChild(linha);
+    const termo = (campoBusca?.value || "").toLowerCase().trim();
+    const statusEscolhido = campoStatus?.value || "";
+
+    const filtrada = listaAtual.filter(f => {
+        const textoCandidato = `${f.nome} ${f.cargo} ${f.departamento || ""}`.toLowerCase();
+        const bateBusca = !termo || textoCandidato.includes(termo);
+        const bateStatus = !statusEscolhido || textoStatus(f.status) === statusEscolhido;
+        return bateBusca && bateStatus;
+    });
+
+    mostrarTabela(filtrada);
+}
+
+function mostrarTabela(lista) {
+    const corpoTabela = document.getElementById("candidateTable");
+    const contador = document.getElementById("resultCount");
+
+    if (lista.length === 0) {
+        corpoTabela.innerHTML = "<div class='empty-state'><b>Nenhum candidato encontrado.</b><br>Experimente remover algum filtro ou fazer outra busca.</div>";
+        contador.textContent = "0 candidatos";
+        return;
     }
+
+    corpoTabela.innerHTML = lista.map(f => `
+        <article class="candidate-row">
+            <div class="candidate-person"><span class="candidate-avatar initials">${iniciais(f.nome)}</span>
+                <div><b>${f.nome}</b><small>${f.email || ""}</small></div>
+            </div>
+            <div class="candidate-main"><b>${f.cargo || "-"}</b><small>Posição em aberto</small></div>
+            <div class="candidate-main"><b>${f.departamento || "-"}</b><small>Departamento</small></div>
+            <div class="candidate-salary">${formatarSalario(f.salario)}</div>
+            <div><span class="status-pill ${classeStatus(f.status)}">${textoStatus(f.status)}</span></div>
+            <div class="row-actions">
+                <button type="button" class="row-action" title="Ações rápidas" data-acao="ver" data-id="${f.id}">${icones.bolt}</button>
+                <button type="button" class="row-action" title="Editar" data-acao="editar" data-id="${f.id}">${icones.edit}</button>
+                <button type="button" class="row-action delete" title="Excluir" data-acao="excluir" data-id="${f.id}">${icones.trash}</button>
+            </div>
+        </article>
+    `).join("");
+
+    contador.textContent = `${lista.length} candidato${lista.length === 1 ? "" : "s"}`;
 }
 
 function iniciarTabela() {
-    const corpoTabela = document.getElementById("tabela-candidatos");
+    const corpoTabela = document.getElementById("candidateTable");
 
     corpoTabela.addEventListener("click", function (evento) {
         const botao = evento.target.closest("button[data-acao]");
@@ -89,28 +94,28 @@ function iniciarTabela() {
             verDetalhes(id);
         }
     });
-
-    corpoTabela.addEventListener("change", function (evento) {
-        const select = evento.target.closest(".select-status");
-        if (!select) {
-            return;
-        }
-        mudarStatus(Number(select.dataset.id), select.value);
-    });
 }
 
-async function excluir(id) {
-    const confirmar = confirm("Deseja realmente excluir o candidato #" + id + "?");
-    if (!confirmar) {
-        return;
-    }
+function excluir(id) {
+    const funcionario = listaAtual.find(f => f.id === id);
+    if (!funcionario) return;
+
+    idSelecionado = id;
+    document.getElementById("deleteText").textContent =
+        `Essa ação removerá permanentemente os dados de ${funcionario.nome}.`;
+    window.openModal("deleteModal");
+}
+
+async function confirmarExclusao() {
+    if (idSelecionado === null) return;
 
     try {
-        await excluirFuncionario(id);
-        alert("Candidato excluído com sucesso!");
+        await excluirFuncionario(idSelecionado);
+        window.closeModal("deleteModal");
         carregarFuncionarios();
     } catch (erro) {
         alert(erro.message);
+        window.closeModal("deleteModal");
     }
 }
 
@@ -122,33 +127,36 @@ async function editar(id) {
         alert(erro.message);
     }
 }
+
 async function verDetalhes(id) {
     try {
         const f = await getFuncionarioPorId(id);
-        alert(
-            "ID: " + f.id +
-            "\nNome: " + f.nome +
-            "\nE-mail: " + f.email +
-            "\nTelefone: " + (f.telefone || "-") +
-            "\nCargo: " + f.cargo +
-            "\nDepartamento: " + (f.departamento || "-") +
-            "\nSalário: " + formatarSalario(f.salario) +
-            "\nCidade: " + (f.cidade || "-") +
-            "\nStatus: " + textoStatus(f.status)
-        );
+        idSelecionado = id;
+
+        document.getElementById("quickContent").innerHTML = `
+            <div class="quick-person"><span class="quick-avatar">${iniciais(f.nome)}</span>
+                <div><h3>${f.nome}</h3><small>${f.email || ""} · ${f.telefone || "-"}</small></div>
+            </div>
+            <div class="quick-grid">
+                <div class="quick-item"><small>Cargo</small><b>${f.cargo || "-"}</b></div>
+                <div class="quick-item"><small>Departamento</small><b>${f.departamento || "-"}</b></div>
+                <div class="quick-item"><small>Salário</small><b>${formatarSalario(f.salario)}</b></div>
+                <div class="quick-item"><small>Status</small><span class="status-pill ${classeStatus(f.status)}">${textoStatus(f.status)}</span></div>
+            </div>`;
+
+        window.openModal("quickModal");
     } catch (erro) {
         alert(erro.message);
     }
 }
 
-async function mudarStatus(id, novoStatus) {
-    try {
-        await atualizarStatus(id, novoStatus);
-        carregarFuncionarios();
-    } catch (erro) {
-        alert(erro.message);
-        carregarFuncionarios();
-    }
+function iniciarQuickEdit() {
+    document.getElementById("quickEdit").addEventListener("click", () => {
+        window.closeModal("quickModal");
+        if (idSelecionado !== null) editar(idSelecionado);
+    });
+
+    document.getElementById("confirmDelete").addEventListener("click", confirmarExclusao);
 }
 
-export { carregarFuncionarios, iniciarTabela };
+export { carregarFuncionarios, aplicarFiltrosERenderizar, iniciarTabela, iniciarQuickEdit };

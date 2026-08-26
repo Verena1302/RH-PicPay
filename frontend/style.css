@@ -12,6 +12,7 @@
   --text-faint: #4f5a53;
   --border: rgba(255, 255, 255, .075);
   --accent: #21d66b;
+  --green: #21d66b;
   --accent-strong: #2ce477;
   --accent-soft: rgba(33, 214, 107, .10);
   --on-accent: #061009;
@@ -41,6 +42,7 @@ body.light {
   --text-faint: #9aa39d;
   --border: rgba(13, 24, 16, .09);
   --accent: #17b85a;
+  --green: #17b85a;
   --accent-strong: #12a84f;
   --accent-soft: rgba(23, 184, 90, .10);
   --on-accent: #061009;

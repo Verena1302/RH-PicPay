@@ -1,29 +1,32 @@
 import { cadastrarFuncionario, atualizarFuncionario } from "./api.js";
-import { carregarFuncionarios } from "./funcionarios.js";
+import { enumStatus, textoStatus } from "./utils.js";
+import { aplicarFiltrosERenderizar, carregarFuncionarios } from "./funcionarios.js";
 
 let idEmEdicao = null;
 
 function iniciarFormulario() {
-    const form = document.getElementById("form-candidato");
-    const botaoCancelar = document.getElementById("btn-cancelar-edicao");
-
+    const form = document.getElementById("candidateForm");
     form.addEventListener("submit", enviarFormulario);
-    botaoCancelar.addEventListener("click", limparFormulario);
+
+    document.getElementById("openCreate").addEventListener("click", abrirParaCadastro);
+    document.getElementById("mobileCreate")?.addEventListener("click", e => {
+        e.preventDefault();
+        abrirParaCadastro();
+    });
 }
 
 function lerFormulario() {
-    const funcionario = {
-        id: Number(document.getElementById("id").value),
-        nome: document.getElementById("nome").value,
-        email: document.getElementById("email").value,
-        telefone: document.getElementById("telefone").value,
-        cargo: document.getElementById("cargo").value,
-        departamento: document.getElementById("departamento").value,
-        salario: document.getElementById("salario").value ? Number(document.getElementById("salario").value) : null,
-        cidade: document.getElementById("cidade").value,
-        status: document.getElementById("status").value
+    return {
+        id: Number(document.getElementById("fieldId").value),
+        nome: document.getElementById("fieldName").value,
+        email: document.getElementById("fieldEmail").value,
+        telefone: document.getElementById("fieldPhone").value,
+        cargo: document.getElementById("fieldRole").value,
+        departamento: document.getElementById("fieldDept").value,
+        salario: document.getElementById("fieldSalary").value ? Number(document.getElementById("fieldSalary").value) : null,
+        cidade: null,
+        status: enumStatus(document.getElementById("fieldStatus").value)
     };
-    return funcionario;
 }
 
 async function enviarFormulario(evento) {
@@ -32,15 +35,12 @@ async function enviarFormulario(evento) {
 
     try {
         if (idEmEdicao === null) {
-            // não está editando ninguém -> cadastra novo (POST)
             await cadastrarFuncionario(funcionario);
-            alert("Candidato cadastrado com sucesso!");
         } else {
-            // está editando -> atualiza (PUT)
             await atualizarFuncionario(idEmEdicao, funcionario);
-            alert("Candidato atualizado com sucesso!");
         }
 
+        window.closeModal("candidateModal");
         limparFormulario();
         carregarFuncionarios();
     } catch (erro) {
@@ -48,35 +48,42 @@ async function enviarFormulario(evento) {
     }
 }
 
+function abrirParaCadastro() {
+    limparFormulario();
+    window.openModal("candidateModal");
+}
+
 function iniciarEdicao(funcionario) {
     idEmEdicao = funcionario.id;
 
-    document.getElementById("id").value = funcionario.id;
-    document.getElementById("id").disabled = true;
-    document.getElementById("nome").value = funcionario.nome || "";
-    document.getElementById("email").value = funcionario.email || "";
-    document.getElementById("telefone").value = funcionario.telefone || "";
-    document.getElementById("cargo").value = funcionario.cargo || "";
-    document.getElementById("departamento").value = funcionario.departamento || "";
-    document.getElementById("salario").value = funcionario.salario || "";
-    document.getElementById("cidade").value = funcionario.cidade || "";
-    document.getElementById("status").value = funcionario.status || "EM_ANALISE";
+    document.getElementById("editId").value = funcionario.id;
+    document.getElementById("fieldId").value = funcionario.id;
+    document.getElementById("fieldId").disabled = true;
+    document.getElementById("fieldName").value = funcionario.nome || "";
+    document.getElementById("fieldEmail").value = funcionario.email || "";
+    document.getElementById("fieldPhone").value = funcionario.telefone || "";
+    document.getElementById("fieldRole").value = funcionario.cargo || "";
+    document.getElementById("fieldDept").value = funcionario.departamento || "";
+    document.getElementById("fieldSalary").value = funcionario.salario ?? "";
+    document.getElementById("fieldStatus").value = textoStatus(funcionario.status);
 
-    document.getElementById("titulo-formulario").textContent = "Editar Candidato #" + funcionario.id;
-    document.getElementById("botao-salvar").textContent = "Atualizar Candidato";
-    document.getElementById("btn-cancelar-edicao").hidden = false;
+    document.getElementById("modalTitle").textContent = "Editar candidato";
+    document.getElementById("modalDescription").textContent = "Atualize os dados desta pessoa no processo seletivo.";
+    document.getElementById("submitCandidate").innerHTML = "Salvar alterações <span>→</span>";
+
+    window.openModal("candidateModal");
 }
 
 function limparFormulario() {
     idEmEdicao = null;
 
-    document.getElementById("form-candidato").reset();
-    document.getElementById("id").disabled = false;
+    document.getElementById("candidateForm").reset();
+    document.getElementById("editId").value = "";
+    document.getElementById("fieldId").disabled = false;
 
-    document.getElementById("titulo-formulario").textContent = "Cadastrar Candidato";
-    document.getElementById("botao-salvar").textContent = "Cadastrar Candidato";
-    document.getElementById("btn-cancelar-edicao").hidden = true;
+    document.getElementById("modalTitle").textContent = "Cadastrar candidato";
+    document.getElementById("modalDescription").textContent = "Adicione uma nova pessoa ao processo seletivo.";
+    document.getElementById("submitCandidate").innerHTML = "Cadastrar candidato <span>→</span>";
 }
 
 export { iniciarFormulario, iniciarEdicao };
-
