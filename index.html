@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="app-shell">
         <aside class="sidebar"><a class="brand" href="index.html" aria-label="PicPay RH — início"><img
                     class="brand-logo" src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span
@@ -33,6 +34,27 @@
                     aria-label="Alternar tema"><svg></svg><span>Tema</span></button>
                 <div class="side-profile"><span class="profile-avatar">RH</span>
                     <div><b>Time de Pessoas</b><small>Workspace interno</small></div>
+=======
+    
+    <audio id="som-sucesso" src="audio/audioSucesso.mp3"></audio>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="frontend/fotos/PicPay_logo.png" alt="PicPay" class="logo-img">
+        </div>
+        <h1 class="nav-title">Recursos Humanos</h1>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="frontend/fotos/person.png" alt="Total" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value" id="total-candidatos">0</strong>
+                    <span class="kpi-label">Candidatos</span>
+>>>>>>> 9b5216cb2c5ee70fcd80fe81d4dbb06f3f0ce8c1
                 </div>
             </div>
         </aside>
@@ -89,6 +111,7 @@
                     </div>
                 </section>
             </div>
+<<<<<<< HEAD
         </main>
     </div>
     <nav class="bottom-nav"><a class="active" href="index.html"><svg viewBox="0 0 24 24" fill="none"
@@ -106,6 +129,176 @@
                 <path d="M12 3v18M3 12h18" />
             </svg>Novo</a></nav>
     <script src="frontend/js/script.js"></script>
+=======
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="frontend/fotos/accepted.png" alt="Aprovados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value" id="aprovados">0</strong>
+                    <span class="kpi-label">Aprovados</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="frontend/fotos/rejected.png" alt="Reprovados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value" id="reprovados">0</strong>
+                    <span class="kpi-label">Reprovados</span>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-icon-wrapper">
+                    <img src="frontend/fotos/hired.png" alt="Contratados" class="kpi-icon-img">
+                </div>
+                <div class="kpi-info">
+                    <strong class="kpi-value" id="contratados">0</strong>
+                    <span class="kpi-label">Contratados</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-content-split">
+            <div class="content-card form-section">
+                <h2 class="card-title" id="titulo-formulario">Cadastrar Candidato</h2>
+                <form class="form-grid" id="form-candidato">
+                    <div class="form-group span-half">
+                        <label for="id">ID *</label>
+                        <input type="number" id="id" name="id" required placeholder="Ex: 1">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="EM_ANALISE">Em Análise</option>
+                            <option value="APROVADO">Aprovado</option>
+                            <option value="REPROVADO">Reprovado</option>
+                            <option value="CONTRATADO">Contratado</option>
+                        </select>
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Nome do candidato">
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required placeholder="email@exemplo.com">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="cargo">Cargo *</label>
+                        <input type="text" id="cargo" name="cargo" required placeholder="Ex: Desenvolvedor">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="departamento">Departamento</label>
+                        <input type="text" id="departamento" name="departamento" placeholder="Tecnologia">
+                    </div>
+                    <div class="form-group span-half">
+                        <label for="salario">Salário (R$)</label>
+                        <input type="number" id="salario" name="salario" step="0.01" placeholder="0.00">
+                    </div>
+                    <div class="form-group span-full">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo">
+                    </div>
+                    <div class="form-actions span-full">
+                        <button type="submit" class="btn btn-primary" id="botao-salvar">Cadastrar Candidato</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="content-card table-section">
+                <div class="card-header">
+                    <h1 class="card-title">Candidatos Cadastrados</h1>
+                    <div class="search-box">
+                        <input type="text" id="busca-input" placeholder="Buscar por nome, cargo ou status...">
+                        <button type="button" class="btn btn-search" id="btn-buscar">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-candidatos">
+                            <tr>
+                                <td colspan="5">Carregando candidatos...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modal-edicao" hidden>
+        <div class="modal-card">
+            <h2 class="card-title" id="modal-titulo">Editar Candidato</h2>
+            <form class="form-grid" id="form-modal-edicao">
+                <div class="form-group span-half">
+                    <label for="modal-id">ID</label>
+                    <input type="number" id="modal-id" disabled>
+                </div>
+                <div class="form-group span-half">
+                    <label for="modal-status">Status</label>
+                    <select id="modal-status">
+                        <option value="EM_ANALISE">Em Análise</option>
+                        <option value="APROVADO">Aprovado</option>
+                        <option value="REPROVADO">Reprovado</option>
+                        <option value="CONTRATADO">Contratado</option>
+                    </select>
+                </div>
+                <div class="form-group span-full">
+                    <label for="modal-nome">Nome Completo *</label>
+                    <input type="text" id="modal-nome" required>
+                </div>
+                <div class="form-group span-full">
+                    <label for="modal-email">E-mail *</label>
+                    <input type="email" id="modal-email" required>
+                </div>
+                <div class="form-group span-half">
+                    <label for="modal-telefone">Telefone</label>
+                    <input type="tel" id="modal-telefone">
+                </div>
+                <div class="form-group span-half">
+                    <label for="modal-cargo">Cargo *</label>
+                    <input type="text" id="modal-cargo" required>
+                </div>
+                <div class="form-group span-half">
+                    <label for="modal-departamento">Departamento</label>
+                    <input type="text" id="modal-departamento">
+                </div>
+                <div class="form-group span-half">
+                    <label for="modal-salario">Salário (R$)</label>
+                    <input type="number" id="modal-salario" step="0.01">
+                </div>
+                <div class="form-group span-full">
+                    <label for="modal-cidade">Cidade</label>
+                    <input type="text" id="modal-cidade">
+                </div>
+                <div class="form-actions span-full modal-actions">
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    <button type="button" class="btn btn-danger" id="btn-fechar-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="frontend/js/app.js"></script>
+>>>>>>> 9b5216cb2c5ee70fcd80fe81d4dbb06f3f0ce8c1
 </body>
 
 </html>
