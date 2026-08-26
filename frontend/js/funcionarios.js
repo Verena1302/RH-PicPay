@@ -1,4 +1,4 @@
-import { getFuncionarios, getFuncionarioPorId, excluirFuncionario } from "./api.js";
+import { getFuncionarios, getFuncionarioPorId, excluirFuncionario, atualizarFuncionario } from "./api.js";
 import { textoStatus, classeStatus, formatarSalario, iniciais } from "./utils.js";
 import { iniciarEdicao } from "./formularios.js";
 
@@ -98,11 +98,16 @@ function iniciarTabela() {
 
 function excluir(id) {
     const funcionario = listaAtual.find(f => f.id === id);
-    if (!funcionario) return;
+
+    if (!funcionario) {
+        return;
+    }
 
     idSelecionado = id;
+
     document.getElementById("deleteText").textContent =
         `Essa ação removerá permanentemente os dados de ${funcionario.nome}.`;
+
     window.openModal("deleteModal");
 }
 
@@ -134,29 +139,174 @@ async function verDetalhes(id) {
         idSelecionado = id;
 
         document.getElementById("quickContent").innerHTML = `
-            <div class="quick-person"><span class="quick-avatar">${iniciais(f.nome)}</span>
-                <div><h3>${f.nome}</h3><small>${f.email || ""} · ${f.telefone || "-"}</small></div>
+            <div class="quick-person">
+                <span class="quick-avatar">${iniciais(f.nome)}</span>
+
+                <div>
+                    <h3>${f.nome}</h3>
+                    <small>${f.email || ""}</small>
+                </div>
             </div>
+
             <div class="quick-grid">
-                <div class="quick-item"><small>Cargo</small><b>${f.cargo || "-"}</b></div>
-                <div class="quick-item"><small>Departamento</small><b>${f.departamento || "-"}</b></div>
-                <div class="quick-item"><small>Salário</small><b>${formatarSalario(f.salario)}</b></div>
-                <div class="quick-item"><small>Status</small><span class="status-pill ${classeStatus(f.status)}">${textoStatus(f.status)}</span></div>
-            </div>`;
+
+                <div class="quick-item">
+                    <label for="quickRole">Cargo</label>
+
+                    <input
+                        id="quickRole"
+                        type="text"
+                        value="${f.cargo || ""}"
+                    >
+                </div>
+
+                <div class="quick-item">
+                    <label for="quickDept">Departamento</label>
+
+                    <select id="quickDept">
+                        <option value="Tecnologia" ${f.departamento === "Tecnologia" ? "selected" : ""}>
+                            Tecnologia
+                        </option>
+
+                        <option value="Produto" ${f.departamento === "Produto" ? "selected" : ""}>
+                            Produto
+                        </option>
+
+                        <option value="Marketing" ${f.departamento === "Marketing" ? "selected" : ""}>
+                            Marketing
+                        </option>
+
+                        <option value="Financeiro" ${f.departamento === "Financeiro" ? "selected" : ""}>
+                            Financeiro
+                        </option>
+
+                        <option value="RH" ${f.departamento === "RH" ? "selected" : ""}>
+                            RH
+                        </option>
+                    </select>
+                </div>
+
+                <div class="quick-item">
+                    <label for="quickSalary">Salário</label>
+
+                    <input
+                        id="quickSalary"
+                        type="text"
+                        inputmode="numeric"
+                        value="${formatarSalario(f.salario)}"
+                    >
+                </div>
+
+                <div class="quick-item">
+                    <label for="quickStatus">Status</label>
+
+                    <select id="quickStatus">
+                        <option value="EM_ANALISE" ${f.status === "EM_ANALISE" ? "selected" : ""}>
+                            Em análise
+                        </option>
+
+                        <option value="APROVADO" ${f.status === "APROVADO" ? "selected" : ""}>
+                            Aprovado
+                        </option>
+
+                        <option value="REPROVADO" ${f.status === "REPROVADO" ? "selected" : ""}>
+                            Reprovado
+                        </option>
+
+                        <option value="CONTRATADO" ${f.status === "CONTRATADO" ? "selected" : ""}>
+                            Contratado
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+        `;
+
+        configurarEventosQuick();
 
         window.openModal("quickModal");
+
     } catch (erro) {
         alert(erro.message);
     }
 }
 
 function iniciarQuickEdit() {
-    document.getElementById("quickEdit").addEventListener("click", () => {
-        window.closeModal("quickModal");
-        if (idSelecionado !== null) editar(idSelecionado);
-    });
+    document.getElementById("quickEdit").addEventListener("click", salvarEdicaoRapida);
 
-    document.getElementById("confirmDelete").addEventListener("click", confirmarExclusao);
+    document.getElementById("confirmDelete")
+        .addEventListener("click", confirmarExclusao);
 }
 
 export { carregarFuncionarios, aplicarFiltrosERenderizar, iniciarTabela, iniciarQuickEdit };
+
+function configurarEventosQuick() {
+    const inputSalario = document.getElementById("quickSalary");
+
+    inputSalario.addEventListener("input", formatarSalarioQuick);
+}
+
+function formatarSalarioQuick(evento) {
+    let valor = evento.target.value.replace(/\D/g, "");
+
+    if (!valor) {
+        evento.target.value = "";
+        return;
+    }
+
+    valor = Number(valor) / 100;
+
+    evento.target.value = valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+function converterSalarioQuick(valor) {
+    return Number(
+        valor
+            .replace("R$", "")
+            .replace(/\./g, "")
+            .replace(",", ".")
+            .trim()
+    );
+}
+
+async function salvarEdicaoRapida() {
+    if (idSelecionado === null) {
+        return;
+    }
+
+    try {
+        const funcionarioAtual = await getFuncionarioPorId(idSelecionado);
+
+        const funcionarioAtualizado = {
+            ...funcionarioAtual,
+
+            cargo: document.getElementById("quickRole").value,
+
+            departamento:
+                document.getElementById("quickDept").value,
+
+            salario:
+                converterSalarioQuick(
+                    document.getElementById("quickSalary").value
+                ),
+
+            status:
+                document.getElementById("quickStatus").value
+        };
+
+        await atualizarFuncionario(
+            idSelecionado,
+            funcionarioAtualizado
+        );
+
+        window.closeModal("quickModal");
+
+        await carregarFuncionarios();
+
+    } catch (erro) {
+        alert(erro.message);
+    }
+}
