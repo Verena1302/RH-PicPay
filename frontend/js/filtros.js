@@ -8,22 +8,31 @@ function iniciarFiltros() {
         return;
     }
 
-    botaoBuscar.addEventListener("click", function () {
-        carregarFuncionarios(campoBusca.value.trim());
-    });
+    // filtragem em tempo real, sem precisar de botão (o backend só busca
+    // por nome/cargo/status; departamento é filtrado aqui no front)
+    campoBusca.addEventListener("input", aplicarFiltrosERenderizar);
+    campoStatus.addEventListener("change", aplicarFiltrosERenderizar);
 
-    campoBusca.addEventListener("keypress", function (evento) {
-        if (evento.key === "Enter") {
-            evento.preventDefault();
-            carregarFuncionarios(campoBusca.value.trim());
-        }
-    });
+    iniciarPainelMobile();
+}
 
-    // Se o usuário apagar a busca, volta a mostrar todos
-    campoBusca.addEventListener("input", function () {
-        if (campoBusca.value.trim() === "") {
-            carregarFuncionarios();
-        }
+function iniciarPainelMobile() {
+    const painel = document.getElementById("filtersPanel");
+    const botaoAbrir = document.getElementById("mobileFilters");
+    const fundo = document.getElementById("mobileFilterBackdrop");
+
+    if (!painel) return;
+
+    const alternar = (abrir) => {
+        painel.classList.toggle("open", abrir);
+        if (fundo) fundo.classList.toggle("open", abrir);
+        document.body.style.overflow = abrir ? "hidden" : "";
+    };
+
+    botaoAbrir?.addEventListener("click", () => alternar(true));
+    fundo?.addEventListener("click", () => alternar(false));
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") alternar(false);
     });
 }
 

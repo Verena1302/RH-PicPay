@@ -1,5 +1,5 @@
-import { getFuncionarios, getFuncionarioPorId, excluirFuncionario, atualizarStatus } from "./api.js";
-import { textoStatus, formatarSalario } from "./utils.js";
+import { getFuncionarios, getFuncionarioPorId, excluirFuncionario } from "./api.js";
+import { textoStatus, classeStatus, formatarSalario, iniciais } from "./utils.js";
 import { iniciarEdicao } from "./formularios.js";
 
 let listaAtual = [];
@@ -122,7 +122,7 @@ async function confirmarExclusao() {
 async function editar(id) {
     try {
         const funcionario = await getFuncionarioPorId(id);
-        abrirModalEdicao(funcionario);
+        iniciarEdicao(funcionario);
     } catch (erro) {
         alert(erro.message);
     }
@@ -159,4 +159,4 @@ function iniciarQuickEdit() {
     document.getElementById("confirmDelete").addEventListener("click", confirmarExclusao);
 }
 
-export { carregarFuncionarios, iniciarTabela };
+export { carregarFuncionarios, aplicarFiltrosERenderizar, iniciarTabela, iniciarQuickEdit };
