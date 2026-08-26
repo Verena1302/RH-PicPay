@@ -1,159 +1,111 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PicPay - Candidatos</title>
-    <link rel="icon" type="image/png" href="frontend/fotos/PicPay_mini.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="frontend/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="theme-color" content="#070908">
+    <title>PicPay RH — Pessoas no centro</title>
+    <link rel="shortcut icon" href="https://cdn.simpleicons.org/picpay/21D66B" type="image/x-icon">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="logo-container">
-            <img src="frontend/fotos/PicPay_logo.png" alt="PicPay" class="logo-img">
-        </div>
-            <h1 class="nav-title">Recursos Humanos</h1>
-    </header>
-
-    <main class="dashboard-container">
-        <section class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon-wrapper">
-                    <img src="frontend/fotos/person.png" alt="Total" class="kpi-icon-img">
-                </div>
-                <div class="kpi-info">
-                    <strong class="kpi-value" id="total-candidatos">0</strong>
-                    <span class="kpi-label">Candidatos</span>
-                </div>
-            </div>
-
-            <div class="kpi-card">
-                <div class="kpi-icon-wrapper">
-                    <img src="frontend/fotos/under analysis.png" alt="Em Análise" class="kpi-icon-img">
-                </div>
-                <div class="kpi-info">
-                    <strong class="kpi-value" id="em-analise">0</strong>
-                    <span class="kpi-label">Em Análise</span>
+    <div class="app-shell">
+        <aside class="sidebar"><a class="brand" href="index.html" aria-label="PicPay RH — início"><img
+                    class="brand-logo" src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span
+                    class="brand-text">PicPay <span>RH</span></span></a>
+            <div class="sidebar-context"><strong>PICPAY</strong><span>People &amp; Hiring</span></div>
+            <div class="sidebar-label">Menu</div>
+            <nav class="side-nav"><a class="active" href="index.html"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+                    </svg><span>Visão geral</span></a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <circle cx="9" cy="8" r="3" />
+                        <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+                    </svg><span>Candidatos</span></a><a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+                    </svg><span>Dashboard</span></a></nav>
+            <div class="sidebar-spacer"></div>
+            <div class="side-bottom"><button class="side-control theme-toggle"
+                    aria-label="Alternar tema"><svg></svg><span>Tema</span></button>
+                <div class="side-profile"><span class="profile-avatar">RH</span>
+                    <div><b>Time de Pessoas</b><small>Workspace interno</small></div>
                 </div>
             </div>
-
-            <div class="kpi-card">
-                <div class="kpi-icon-wrapper">
-                    <img src="frontend/fotos/accepted.png" alt="Aprovados" class="kpi-icon-img">
-                </div>
-                <div class="kpi-info">
-                    <strong class="kpi-value" id="aprovados">0</strong>
-                    <span class="kpi-label">Aprovados</span>
-                </div>
+        </aside>
+        <header class="mobile-header"><a class="brand" href="index.html"><img class="brand-logo"
+                    src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span class="brand-text">PicPay
+                    <span>RH</span></span></a><button class="icon-btn theme-toggle" aria-label="Alternar tema"></button>
+        </header>
+        <main class="main">
+            <div class="page home">
+                <section class="home-hero">
+                    <div class="hero-copy"><span class="eyebrow"><i></i> PEOPLE EXPERIENCE</span>
+                        <h1>Contratar pessoas incríveis começa com <em>uma experiência melhor.</em></h1>
+                        <p>Um espaço pensado para o time de RH acompanhar o pipeline, entender o momento de cada
+                            candidato e tomar decisões com mais clareza.</p>
+                        <div class="hero-actions"><a class="btn btn-primary" href="candidatos.html">Gerenciar candidatos
+                                <span>→</span></a><a class="hero-link" href="dashboard.html">Ver panorama
+                                <span>↗</span></a></div>
+                        <div class="hero-proof">
+                            <div><strong>48</strong><span>candidatos no pipeline</span></div>
+                            <div><strong>14</strong><span>pessoas aprovadas</span></div>
+                            <div><strong>6</strong><span>contratações</span></div>
+                        </div>
+                    </div>
+                    <div class="hero-visual"><img class="hero-image"
+                            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85"
+                            alt="Equipe trabalhando em um ambiente colaborativo">
+                        <div class="hero-orbit"></div>
+                        <div class="hero-badge"><span class="badge-dot"></span>
+                            <div><b>Pipeline saudável</b><small>+24% de entradas no período</small></div>
+                        </div>
+                        <div class="hero-float"><small>Conversão para contratação</small><strong>72%</strong>
+                            <div class="mini-progress"><i></i></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="home-values">
+                    <div class="value-item"><span class="value-number">01</span>
+                        <div>
+                            <h3>Organize sem perder o contexto</h3>
+                            <p>Dados essenciais e histórico reunidos em uma experiência simples.</p>
+                        </div>
+                    </div>
+                    <div class="value-item"><span class="value-number">02</span>
+                        <div>
+                            <h3>Enxergue o processo de verdade</h3>
+                            <p>Filtros, status e indicadores ajudam a encontrar o próximo passo.</p>
+                        </div>
+                    </div>
+                    <div class="value-item"><span class="value-number">03</span>
+                        <div>
+                            <h3>Decida com mais confiança</h3>
+                            <p>Uma visão clara para transformar movimento em boas contratações.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-
-            <div class="kpi-card">
-                <div class="kpi-icon-wrapper">
-                    <img src="frontend/fotos/rejected.png" alt="Reprovados" class="kpi-icon-img">
-                </div>
-                <div class="kpi-info">
-                    <strong class="kpi-value" id="reprovados">0</strong>
-                    <span class="kpi-label">Reprovados</span>
-                </div>
-            </div>
-
-            <div class="kpi-card">
-                <div class="kpi-icon-wrapper">
-                    <img src="frontend/fotos/hired.png" alt="Contratados" class="kpi-icon-img">
-                </div>
-                <div class="kpi-info">
-                    <strong class="kpi-value" id="contratados">0</strong>
-                    <span class="kpi-label">Contratados</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="main-content-split">
-            <div class="content-card form-section">
-                <h2 class="card-title" id="titulo-formulario">Cadastrar Candidato</h2>
-                <form class="form-grid" id="form-candidato">
-                    <div class="form-group span-half">
-                        <label for="id">ID *</label>
-                        <input type="number" id="id" name="id" required placeholder="Ex: 1">
-                    </div>
-                    <div class="form-group span-half">
-                        <label for="status">Status</label>
-                        <select id="status" name="status">
-                            <option value="EM_ANALISE">Em Análise</option>
-                            <option value="APROVADO">Aprovado</option>
-                            <option value="REPROVADO">Reprovado</option>
-                            <option value="CONTRATADO">Contratado</option>
-                        </select>
-                    </div>
-                    <div class="form-group span-full">
-                        <label for="nome">Nome Completo *</label>
-                        <input type="text" id="nome" name="nome" required placeholder="Nome do candidato">
-                    </div>
-                    <div class="form-group span-full">
-                        <label for="email">E-mail *</label>
-                        <input type="email" id="email" name="email" required placeholder="email@exemplo.com">
-                    </div>
-                    <div class="form-group span-half">
-                        <label for="telefone">Telefone</label>
-                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
-                    </div>
-                    <div class="form-group span-half">
-                        <label for="cargo">Cargo *</label>
-                        <input type="text" id="cargo" name="cargo" required placeholder="Ex: Desenvolvedor">
-                    </div>
-                    <div class="form-group span-half">
-                        <label for="departamento">Departamento</label>
-                        <input type="text" id="departamento" name="departamento" placeholder="Tecnologia">
-                    </div>
-                    <div class="form-group span-half">
-                        <label for="salario">Salário (R$)</label>
-                        <input type="number" id="salario" name="salario" step="0.01" placeholder="0.00">
-                    </div>
-                    <div class="form-group span-full">
-                        <label for="cidade">Cidade</label>
-                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo">
-                    </div>
-                    <div class="form-actions span-full">
-                        <button type="submit" class="btn btn-primary" id="botao-salvar">Cadastrar Candidato</button>
-                        <button type="button" class="btn btn-secondary" id="btn-cancelar-edicao" hidden>Cancelar edição</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="content-card table-section">
-                <div class="card-header">
-                    <h1 class="card-title">Candidatos Cadastrados</h1>
-                    <div class="search-box">
-                        <input type="text" id="busca-input" placeholder="Buscar por nome, cargo ou status...">
-                        <button type="button" class="btn btn-search" id="btn-buscar">Buscar</button>
-                    </div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Cargo</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela-candidatos">
-                            <tr>
-                                <td colspan="5">Carregando candidatos...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script type="module" src="frontend/js/app.js"></script>
+        </main>
+    </div>
+    <nav class="bottom-nav"><a class="active" href="index.html"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8">
+                <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+            </svg>Início</a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <circle cx="9" cy="8" r="3" />
+                <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+            </svg>Candidatos</a><a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+            </svg>Dashboard</a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M12 3v18M3 12h18" />
+            </svg>Novo</a></nav>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
