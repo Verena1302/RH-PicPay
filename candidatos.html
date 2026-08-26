@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>PicPay RH — Candidatos</title>
+    <link rel="shortcut icon" href="https://cdn.simpleicons.org/picpay/21D66B" type="image/x-icon">
+    <link rel="stylesheet" href="frontend/style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar"><a class="brand" href="index.html"><img class="brand-logo"
+                    src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span class="brand-text">PicPay
+                    <span>RH</span></span></a>
+            <div class="sidebar-context"><strong>PICPAY</strong><span>People &amp; Hiring</span></div>
+            <div class="sidebar-label">Menu</div>
+            <nav class="side-nav"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+                    </svg><span>Visão geral</span></a><a class="active" href="candidatos.html"><svg viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="9" cy="8" r="3" />
+                        <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+                    </svg><span>Candidatos</span></a><a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+                    </svg><span>Dashboard</span></a></nav>
+            <div class="sidebar-spacer"></div>
+            <div class="side-bottom"><button class="side-control theme-toggle"
+                    aria-label="Alternar tema"><svg></svg><span>Tema</span></button>
+                <div class="side-profile"><span class="profile-avatar">RH</span>
+                    <div><b>Time de Pessoas</b><small>Workspace interno</small></div>
+                </div>
+            </div>
+        </aside>
+        <header class="mobile-header"><a class="brand" href="index.html"><img class="brand-logo"
+                    src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span class="brand-text">PicPay
+                    <span>RH</span></span></a><button class="icon-btn theme-toggle" aria-label="Alternar tema"></button>
+        </header>
+        <main class="main">
+            <div class="page">
+                <div class="candidates-layout">
+                    <aside class="filters-panel" id="filtersPanel">
+                        <h2>Filtros</h2>
+                        <div class="filter-stack">
+                            <div class="filter-field"><label for="search">Busca geral</label><input id="search"
+                                    type="search" placeholder="Buscar por nome, cargo ou departamento..."
+                                    aria-label="Buscar por nome, cargo ou departamento"></div>
+                            <div class="filter-field"><label for="statusFilter">Status</label><select id="statusFilter">
+                                    <option value="">Todos os status</option>
+                                    <option>Em análise</option>
+                                    <option>Aprovado</option>
+                                    <option>Reprovado</option>
+                                    <option>Contratado</option>
+                                </select></div>
+                        </div><button class="filter-create" id="openCreate" type="button"><span><strong>Novo
+                                    cadastro</strong><small>Adicione uma pessoa ao processo</small></span><svg
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M12 5v14M5 12h14" />
+                            </svg></button>
+                    </aside>
+                    <section class="candidate-content">
+                        <section class="page-top">
+                            <div><span class="eyebrow"><i></i> TALENT PIPELINE</span>
+                                <h1>Candidatos</h1>
+                                <p>Uma visão simples de quem está avançando, aguardando ou saindo do processo.</p>
+                            </div><button class="mobile-filter-toggle" id="mobileFilters" type="button"><svg
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M4 6h16M7 12h10M10 18h4" />
+                                </svg>Filtros</button>
+                        </section>
+                        <section class="list-shell">
+                            <div class="list-head">
+                                <span>Candidato</span><span>Cargo</span><span>Departamento</span><span>Salário</span><span>Status</span><span>Ações</span>
+                            </div>
+                            <div id="candidateTable"></div>
+                            <div id="resultCount" class="sr-only">0 candidatos</div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <div class="mobile-filter-backdrop" id="mobileFilterBackdrop" aria-hidden="true"></div>
+    </div>
+    <div class="modal-backdrop" id="candidateModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close="candidateModal"
+                aria-label="Fechar">×</button>
+            <div class="modal-top"><span class="modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M12 3v18M3 12h18" />
+                    </svg></span>
+                <div><span class="eyebrow">CANDIDATO</span>
+                    <h2 id="modalTitle">Cadastrar candidato</h2>
+                    <p id="modalDescription">Adicione uma nova pessoa ao processo seletivo.</p>
+                </div>
+            </div>
+            <form id="candidateForm"><input type="hidden" id="editId">
+                <div class="form-grid">
+                    <div class="field"><label for="fieldId">ID</label><input id="fieldId" type="number" min="1"
+                            step="1" required placeholder="1001"></div>
+                    <div class="field"><label for="fieldName">Nome</label><input id="fieldName" required
+                            placeholder="Nome completo"></div>
+                    <div class="field"><label for="fieldEmail">E-mail</label><input id="fieldEmail" type="email"
+                            required placeholder="nome@email.com"></div>
+                    <div class="field"><label for="fieldPhone">Telefone</label><input id="fieldPhone" required
+                            placeholder="(11) 99999-9999"></div>
+                    <div class="field"><label for="fieldRole">Cargo</label><input id="fieldRole" required
+                            placeholder="Ex: Product Designer"></div>
+                    <div class="field"><label for="fieldDept">Departamento</label><select id="fieldDept" required>
+                            <option value="">Selecione</option>
+                            <option>Tecnologia</option>
+                            <option>Produto</option>
+                            <option>Marketing</option>
+                            <option>Financeiro</option>
+                            <option>RH</option>
+                        </select></div>
+                    <div class="field"><label for="fieldSalary">Salário</label><input id="fieldSalary" type="number"
+                            min="0" step="0.01" required placeholder="8500.00"></div>
+                    <div class="field"><label for="fieldStatus">Status</label><select id="fieldStatus" required>
+                            <option>Em análise</option>
+                            <option>Aprovado</option>
+                            <option>Reprovado</option>
+                            <option>Contratado</option>
+                        </select></div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-secondary"
+                        data-close="candidateModal">Cancelar</button><button class="btn btn-primary"
+                        id="submitCandidate">Cadastrar candidato <span>→</span></button></div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-backdrop" id="quickModal" aria-hidden="true">
+        <div class="modal modal-small" role="dialog" aria-modal="true"><button class="modal-close"
+                data-close="quickModal">×</button><span class="eyebrow">AÇÕES RÁPIDAS</span>
+            <div id="quickContent"></div>
+            <div class="modal-footer"><button class="btn btn-secondary" data-close="quickModal">Fechar</button><button
+                    class="btn btn-primary" id="quickEdit">Editar candidato →</button></div>
+        </div>
+    </div>
+    <div class="modal-backdrop" id="deleteModal" aria-hidden="true">
+        <div class="modal modal-small" role="dialog" aria-modal="true"><button class="modal-close"
+                data-close="deleteModal">×</button>
+            <div class="danger-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 8v5m0 4h.01" />
+                    <path d="M10.3 3.8 2.8 17a2 2 0 0 0 1.75 3h14.9a2 2 0 0 0 1.75-3l-7.5-13.2a2 2 0 0 0-3.4 0Z" />
+                </svg></div>
+            <h2>Excluir candidato?</h2>
+            <p id="deleteText">Essa ação removerá permanentemente os dados deste candidato.</p>
+            <div class="modal-footer"><button class="btn btn-secondary"
+                    data-close="deleteModal">Cancelar</button><button class="btn btn-danger" id="confirmDelete">Excluir
+                    candidato</button></div>
+        </div>
+    </div>
+    <nav class="bottom-nav"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+            </svg>Início</a><a class="active" href="candidatos.html"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8">
+                <circle cx="9" cy="8" r="3" />
+                <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+            </svg>Candidatos</a><a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+            </svg>Dashboard</a><a href="#" id="mobileCreate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M12 5v14M5 12h14" />
+            </svg>Novo</a></nav>
+    <script src="frontend/js/script.js"></script>
+    <script type="module" src="frontend/js/app.js"></script>
+</body>
+
+</html>

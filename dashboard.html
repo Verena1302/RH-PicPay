@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>PicPay RH — Dashboard</title>
+    <link rel="shortcut icon" href="https://cdn.simpleicons.org/picpay/21D66B" type="image/x-icon">
+    <link rel="stylesheet" href="frontend/style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar"><a class="brand" href="index.html"><img class="brand-logo"
+                    src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span class="brand-text">PicPay
+                    <span>RH</span></span></a>
+            <div class="sidebar-context"><strong>PICPAY</strong><span>People &amp; Hiring</span></div>
+            <div class="sidebar-label">Menu</div>
+            <nav class="side-nav"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+                    </svg><span>Visão geral</span></a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.8">
+                        <circle cx="9" cy="8" r="3" />
+                        <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+                    </svg><span>Candidatos</span></a><a class="active" href="dashboard.html"><svg viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+                    </svg><span>Dashboard</span></a></nav>
+            <div class="sidebar-spacer"></div>
+            <div class="side-bottom"><button class="side-control theme-toggle"
+                    aria-label="Alternar tema"><svg></svg><span>Tema</span></button>
+                <div class="side-profile"><span class="profile-avatar">RH</span>
+                    <div><b>Time de Pessoas</b><small>Workspace interno</small></div>
+                </div>
+            </div>
+        </aside>
+        <header class="mobile-header"><a class="brand" href="index.html"><img class="brand-logo"
+                    src="https://cdn.simpleicons.org/picpay/21D66B" alt="PicPay"><span class="brand-text">PicPay
+                    <span>RH</span></span></a><button class="icon-btn theme-toggle" aria-label="Alternar tema"></button>
+        </header>
+        <main class="main">
+            <div class="page">
+                <section class="dashboard-intro">
+                    <div><span class="eyebrow"><i></i> VISÃO GERAL</span>
+                        <h1>Seu processo, em uma leitura.</h1>
+                        <p>Uma visão rápida para entender onde o pipeline está e onde concentrar atenção.</p>
+                    </div><a class="btn btn-secondary" href="candidatos.html">Ver candidatos <span>→</span></a>
+                </section>
+                <section class="kpi-layout">
+                    <article class="kpi primary">
+                        <div><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8">
+                                    <circle cx="12" cy="8" r="3" />
+                                    <path d="M5 20a7 7 0 0 1 14 0" />
+                                </svg></span><small>Total de candidatos</small><strong id="kpi-total">0</strong></div><span
+                            class="kpi-note" id="kpi-total-note">Pipeline atual</span><i class="kpi-corner"></i>
+                    </article>
+                    <article class="kpi"><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8">
+                                <circle cx="12" cy="12" r="8" />
+                                <path d="M12 8v4l2.5 2" />
+                            </svg></span><small>Em análise</small><strong id="kpi-analise">0</strong><span
+                            class="kpi-note" id="kpi-analise-note">0% do pipeline</span></article>
+                    <article class="kpi"><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8">
+                                <path d="m5 12 4 4L19 6" />
+                            </svg></span><small>Aprovados</small><strong id="kpi-aprovados">0</strong><span
+                            class="kpi-note" id="kpi-aprovados-note">0% do pipeline</span></article>
+                    <article class="kpi"><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8">
+                                <path d="m7 7 10 10M17 7 7 17" />
+                            </svg></span><small>Reprovados</small><strong id="kpi-reprovados">0</strong><span
+                            class="kpi-note" id="kpi-reprovados-note">0% do pipeline</span></article>
+                    <article class="kpi"><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8">
+                                <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />
+                            </svg></span><small>Contratados</small><strong id="kpi-contratados">0</strong><span
+                            class="kpi-note" id="kpi-contratados-note">0% do pipeline</span></article>
+                </section>
+                <section class="chart-grid">
+                    <article class="chart-card">
+                        <div class="chart-head">
+                            <div><span class="eyebrow">PIPELINE</span>
+                                <h2>Status dos candidatos</h2>
+                                <p>Como as pessoas estão distribuídas agora.</p>
+                            </div><span class="chart-tag" id="donut-total-tag">0 total</span>
+                        </div>
+                        <div class="donut-wrap">
+                            <div class="donut" id="statusDonut">
+                                <div class="donut-center"><strong id="donut-total">0</strong><small>candidatos</small></div>
+                            </div>
+                            <div class="legend">
+                                <div class="legend-row"><i style="background:var(--amber)"></i><span>Em
+                                        análise</span><b id="legend-analise">0</b></div>
+                                <div class="legend-row"><i
+                                        style="background:var(--blue)"></i><span>Aprovados</span><b id="legend-aprovados">0</b></div>
+                                <div class="legend-row"><i
+                                        style="background:var(--danger)"></i><span>Reprovados</span><b id="legend-reprovados">0</b></div>
+                                <div class="legend-row"><i
+                                        style="background:var(--green)"></i><span>Contratados</span><b id="legend-contratados">0</b></div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="chart-card">
+                        <div class="chart-head">
+                            <div><span class="eyebrow">DISTRIBUIÇÃO</span>
+                                <h2>Por departamento</h2>
+                                <p>Onde está a maior concentração de talentos.</p>
+                            </div><span class="chart-tag" id="dept-count-tag">0 áreas</span>
+                        </div>
+                        <div class="bar-chart" id="deptBarChart"></div>
+                    </article>
+                </section>
+            </div>
+        </main>
+    </div>
+    <nav class="bottom-nav"><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" />
+            </svg>Início</a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <circle cx="9" cy="8" r="3" />
+                <path d="M3 20a6 6 0 0 1 12 0M17 11a3 3 0 1 0-1-5.8M17 14a4 4 0 0 1 4 4" />
+            </svg>Candidatos</a><a class="active" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.8">
+                <path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8V5" />
+            </svg>Dashboard</a><a href="candidatos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M12 5v14M5 12h14" />
+            </svg>Novo</a></nav>
+    <script src="frontend/js/script.js"></script>
+    <script type="module" src="frontend/js/dashboard.js"></script>
+</body>
+
+</html>
